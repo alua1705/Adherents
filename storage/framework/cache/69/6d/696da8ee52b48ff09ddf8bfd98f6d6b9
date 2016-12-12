@@ -1,0 +1,39 @@
+1481554573a:1:{s:7:"404.htm";a:9:{s:8:"fileName";s:7:"404.htm";s:7:"content";s:1100:"title = "something's lost ..."
+url = "/404"
+layout = "default"
+id = '404'
+==
+
+    {% partial 'blue' %}
+
+    <div class="container mtb">
+        <div class="row">
+            <div class="col-lg-6">
+                <div style="font-weight: bold; font-size: 200px; text-align: center;">
+                    404!
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <h4>Something is lost ...</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+                <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+        </div>
+    </div>";s:5:"mtime";i:1480945066;s:6:"markup";s:1018:"{% partial 'blue' %}
+
+    <div class="container mtb">
+        <div class="row">
+            <div class="col-lg-6">
+                <div style="font-weight: bold; font-size: 200px; text-align: center;">
+                    404!
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <h4>Something is lost ...</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+                <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+        </div>
+    </div>";s:4:"code";N;s:5:"title";s:20:"something's lost ...";s:3:"url";s:4:"/404";s:6:"layout";s:7:"default";s:2:"id";s:3:"404";}}

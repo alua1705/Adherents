@@ -1,0 +1,101 @@
+title = "Записи"
+url = "/posts/:slug"
+layout = "default"
+is_hidden = 0
+
+[blogPost blogPost2]
+slug = "{{ :slug }}"
+categoryPage = "posts"
+
+[blogCategories]
+slug = "{{ :slug }}"
+displayEmpty = 0
+categoryPage = "categories"
+
+[blogPosts]
+pageNumber = "{{ :page }}"
+postsPerPage = 10
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = 404
+postPage = 404
+==
+{% partial 'blue' %}
+
+	<!-- *****************************************************************************************************************
+	 BLOG CONTENT
+	 ***************************************************************************************************************** -->
+
+	 <div class="container mtb">
+	 	<div class="row">
+
+	 		<div class="col-lg-8">
+	 		
+	 	
+	
+           
+            {% set post = blogPost2.post %}
+
+<div class="content">{{ post.content_html|raw }}</div>
+
+{% if post.featured_images.count %}
+    <div class="featured-images text-center">
+         <img style="max-width: 100%"  src="{{post.featured_images[0].path}}" alt="">
+         
+        
+    </div>
+{% endif %}
+
+<p class="info">
+    Posted
+    {% if post.categories.count %} in
+        {% for category in post.categories %}
+            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    {% endif %}
+    on {{ post.published_at|date('M d, Y') }}
+</p>
+
+
+			 </div>
+			 		<div class="col-lg-4">
+		 		<h4>Поиск</h4>
+		 		<form action="{{ 'search' | page }}" method="get">
+                <p><input name="q" class="form-control" type="text" placeholder="Что вы ищете?" autocomplete="off"></p>
+                <button class="btn btn-info" type="submit">Search</button>
+            </form>
+		 	{% component 'searchResults' %}
+		 	
+
+		 		<div class="spacing"></div>
+
+		 		<h4>Категории</h4>
+		 		<div class="hline"></div>
+		 		{% if blogCategories.categories %}
+    
+        {% partial blogCategories ~ "::items"
+            categories = blogCategories.categories
+            currentCategorySlug = blogCategories.currentCategorySlug
+        %}</a>
+  
+{% endif %}
+
+		 		<div class="spacing"></div>
+
+		 		<h4>Последние опубликованные записи</h4>
+		 		<div class="hline"></div>
+					<ul class="popular-posts">
+					{% set posts = blogPosts.posts %}
+		              	{% for post in posts %}
+		                <li>
+		                    <a href="img-responsive"><img src="{{post.featured_images[1].path}}" alt="Popular Post"></a>
+		                    <p><a href="{{ post.slug }}">{{ post.summary|slice(0,100) }}</a></p>
+		                    <em>{{ post.published_at|date('M d, Y') }}</em>
+		                </li>
+		                {%endfor%}
+		            </ul>
+
+		 		
+	 		</div>
+	 	</div>
+	 </div>

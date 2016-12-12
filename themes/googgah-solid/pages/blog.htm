@@ -1,0 +1,139 @@
+title = "Информационный блог"
+url = "/"
+layout = "default"
+is_hidden = 0
+
+[blogCategories]
+slug = "{{ :slug }}"
+displayEmpty = 0
+categoryPage = "categories"
+
+[blogPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "{{ :slug }}"
+postsPerPage = 10
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "categories"
+postPage = "posts"
+
+[searchResults]
+resultsPerPage = 10
+showProviderBadge = 1
+noResultsMessage = "Your search returned no results."
+visitPageMessage = "Visit page"
+==
+{% partial 'blue' %}
+
+	<!-- *****************************************************************************************************************
+	 BLOG CONTENT
+	 ***************************************************************************************************************** -->
+
+	 <div class="container mtb">
+	 	<div class="row">
+
+	 		<div class="col-lg-8">
+	 		
+	 	
+	 		{% set posts = blogPosts.posts %}
+
+<ul class="post-list">
+    {% for post in posts %}
+        <p><img class="img-responsive" src="{{post.featured_images[0].path}}" ></p>
+        	<a href="{{ post.url }}"><h3 class="ctitle">{{ post.title }}</h3></a>
+        
+           
+            <p class="info">
+                Posted
+                {% if post.categories.count %} in {% endif %}
+                {% for category in post.categories %}
+                    <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+                <p><csmall>{{ post.published_at|date('M d, Y') }}</csmall> | <csmall2>By: Admin - 3 Comments</csmall2></p>
+
+            
+            </p>
+            <p><a href='{{ post.url }}'>[Читать больше]</a></p>
+            <!--  <p class="excerpt">{{ post.summary }}</p>  -->
+		 		<div class="hline"></div>
+
+		 		<div class="spacing"></div>
+            
+
+          
+        </li>
+    {% else %}
+        <li class="no-data">{{ noPostsMessage }}</li>
+    {% endfor %}
+</ul>
+
+{% if posts.lastPage > 1 %}
+    <ul class="pagination">
+        {% if posts.currentPage > 1 %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage-1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..posts.lastPage %}
+            <li class="{{ posts.currentPage == page ? 'active' : null }}">
+                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if posts.lastPage > posts.currentPage %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage+1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+{% endif %}
+	 		    
+		 		
+
+		 	
+
+		 	
+
+			</div>
+
+
+	 		<div class="col-lg-4">
+	 			<h4>Поиск</h4>
+	 		<form action="{{ 'search' | page }}" method="get">
+                <p><input name="q" class="form-control" type="text" placeholder="Что вы ищете?" autocomplete="off"></p>
+                <button class="btn btn-info" type="submit">Search</button>
+            </form>
+		 	{% component 'searchResults' %}
+		 	
+
+		 		<div class="spacing"></div>
+
+		 		<h4>Категории</h4>
+		 		<div class="hline"></div>
+		 		{% if blogCategories.categories %}
+    
+        {% partial blogCategories ~ "::items"
+            categories = blogCategories.categories
+            currentCategorySlug = blogCategories.currentCategorySlug
+        %}</a>
+  
+{% endif %}
+
+			 		
+
+		 		<div class="spacing"></div>
+
+		 		<h4>Последние опубликованные записи</h4>
+		 		<div class="hline"></div>
+					<ul class="popular-posts">
+					{% for post in posts %}
+		          <li>
+		                    <a href="#" ><img class='img-responsive' src="{{post.featured_images[1].path}}" alt="Popular Post"></a>
+		                   
+		                   
+		                    <p><a href="{{ post.slug }}">{{ post.summary|slice(0,100) }}</a></p>
+		                    <em>{{ post.published_at|date('M d, Y') }}</em>
+		                </li>
+		                {%endfor%}
+		            </ul>
+
+		 		</div>
+	 	</div>
+	 </div>
